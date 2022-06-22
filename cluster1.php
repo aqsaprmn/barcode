@@ -3,7 +3,6 @@
 require_once 'connect.php';
 
 mysqli_query($conn, "INSERT INTO qr VALUES ('', 'Cluster 1',now())");
-
 ?>
 
 <!DOCTYPE html>
@@ -13,13 +12,13 @@ mysqli_query($conn, "INSERT INTO qr VALUES ('', 'Cluster 1',now())");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cluster 1 - Akses Prima Indonesia</title>
     <link rel="shortcut icon" href="./asset/logo-removebg-preview.png" type="image/x-icon">
     <link rel="stylesheet" href="./asset/css/style.css">
+    <title>Cluster 1 - Akses Prima Indonesia</title>
 </head>
 
 <body>
-    <div>
+    <div class="cluster">
         <img class="logo" src="./asset/logo_api-removebg-preview.png" alt="">
         <h1>Cluster 1</h1>
         <h3>Terimakasih sudah melakukan sacaning QR</h3>
@@ -28,6 +27,8 @@ mysqli_query($conn, "INSERT INTO qr VALUES ('', 'Cluster 1',now())");
         <img src="./asset/logowa.png" alt="">
         <a target="blank" href="https://api.whatsapp.com/send/?phone=081212129751&text=Halo Admin... Saya ingin berlangganan internet...">WhatsApp</a>
     </div>
+
+
 </body>
 
 </html>

@@ -13,13 +13,13 @@ mysqli_query($conn, "INSERT INTO qr VALUES ('', 'Cluster 4',now())");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cluster 4 - Akses Prima Indonesia</title>
     <link rel="shortcut icon" href="./asset/logo-removebg-preview.png" type="image/x-icon">
     <link rel="stylesheet" href="./asset/css/style.css">
+    <title>Cluster 4 - Akses Prima Indonesia</title>
 </head>
 
 <body>
-    <div>
+    <div class="cluster">
         <img class="logo" src="./asset/logo_api-removebg-preview.png" alt="">
         <h1>Cluster 4</h1>
         <h3>Terimakasih sudah melakukan sacaning QR</h3>
