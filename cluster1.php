@@ -25,7 +25,7 @@ mysqli_query($conn, "INSERT INTO qr VALUES ('', 'Cluster 1',now())");
         <p>Silhkan tekan tombol Whatsapp</p>
         <p>Untuk melanjutkan berlangganan internet</p>
         <img src="./asset/logowa.png" alt="">
-        <a target="blank" href="https://api.whatsapp.com/send/?phone=081212129751&text=Halo Admin... Saya ingin berlangganan internet...">WhatsApp</a>
+        <a target="blank" href="https://api.whatsapp.com/send/?phone=6281212129751&text=Halo Admin... Saya ingin berlangganan internet...">WhatsApp</a>
     </div>
 
 
