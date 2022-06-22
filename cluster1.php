@@ -2,7 +2,7 @@
 
 require_once 'connect.php';
 
-mysqli_query($conn, "INSERT INTO qr VALUES ('', 'Cluster1',now())");
+mysqli_query($conn, "INSERT INTO qr VALUES ('', 'Cluster 1',now())");
 
 ?>
 
