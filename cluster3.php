@@ -2,7 +2,7 @@
 
 require_once 'function.php';
 
-mysqli_query($conn, "INSERT INTO qr VALUES ('', 'Cluster 3',now()," . date('m') . "," . date("Y") . ")");
+mysqli_query($conn, "INSERT INTO qr VALUES ('', 'Cluster 3',now()," . date('d') . "," . date('m') . "," . date("Y") . ")");
 
 ?>
 
