@@ -17,5 +17,9 @@ function getData($data)
 
 function base_url()
 {
-    return 'http://localhost/barcode/';
+
+    // $server = 'http://localhost/barcode/';
+    $server = 'http://103.242.181.10/barcode/';
+
+    return $server;
 }
