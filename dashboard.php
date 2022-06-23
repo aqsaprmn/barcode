@@ -13,7 +13,6 @@ $data = getData('SELECT * FROM qr');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./asset/logo-removebg-preview.png" type="image/x-icon">
     <title>Dashboard - Akses Prima Indonesia</title>
 
     <link rel="stylesheet" href="<?= base_url() ?>asset/css/style.css">
@@ -29,17 +28,33 @@ $data = getData('SELECT * FROM qr');
 
 <body>
     <header class="text-center my-5">
-        <h1>Dashboard</h1>
+        <div class="row m-0">
+            <div class="col-sm-1 ps-5">
+                <img style="width:200px ;" src="<?= base_url() ?>asset/img/logo_api-removebg-preview.png" class="mb-4" alt="">
+            </div>
+            <div class="col-sm-11">
+                <h1>Dashboard</h1>
+            </div>
+        </div>
     </header>
     <section class="">
-        <div class="row mb-5 p-0 m-0">
-            <div class="col-lg-6 d-flex justify-content-center">
-                <div class="chartDonat ">
+        <div class="row justify-content-around mb-5 px-2 m-0">
+            <div class="col-lg-5 mb-4 shadow-lg border border-gray py-4 rounded justify-content-center">
+                <div class="text-center mb-4">
+                    <h5>Total Akses QR Per Kawasan</h5>
+                </div>
+                <div class="chartDonat">
                     <canvas id="donat"></canvas>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="chartBar">
+            <div class="col-lg-6 p-4 shadow-lg border border-gray">
+                <div class="text-center mb-4">
+                    <h5>Total Akses QR Per Kawasan</h5>
+                </div>
+                <div class="row justify-content-end">
+                    <div class="col-4"><input id="month" type="month" value="<?= date("Y-m"); ?>" class="form-control"></div>
+                </div>
+                <div class="chartBar ">
                     <canvas id="bar"></canvas>
                 </div>
             </div>
@@ -58,7 +73,7 @@ $data = getData('SELECT * FROM qr');
                         <?php $i = 1; ?>
                         <?php foreach ($data as $d) : ?>
                             <tr>
-                                <td class="text-center"><?= $i; ?></td>
+                                <td class="text-center p-2"><?= $i; ?></td>
                                 <td><?= $d['kawasan'] ?></td>
                                 <td class="text-center"><?= $d['tanggal'] ?></td>
                             </tr>
@@ -66,22 +81,95 @@ $data = getData('SELECT * FROM qr');
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-
             </div>
         </div>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js" integrity="sha512-R/QOHLpV1Ggq22vfDAWYOaMd5RopHrJNMxi8/lJu8Oihwi4Ho4BRFeiMiCefn9rasajKjnx9/fTQ/xkWnkDACg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script src="<?= base_url() ?>/asset/js/script.js"></script>
     <script>
         const xhr = new XMLHttpRequest;
 
         xhr.addEventListener('load', function() {
             const jsonRes = JSON.parse(xhr.response);
-            const totalcluster = jsonRes['total'];
+            const totalcluster = jsonRes['kawasan'];
+            const month = document.getElementById('month');
 
-            console.log(jsonRes);
+            month.addEventListener('change', function() {
+                const xhr = new XMLHttpRequest;
+                xhr.open('POST', '<?= base_url() ?>' + 'api.php');
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send('date=' + this.value);
+                xhr.addEventListener('load', function() {
+                    const jsonRes = JSON.parse(xhr.response);
+                    const total = jsonRes['tanggal'];
+
+                    const date = [];
+                    // const datelabel = [];
+
+                    jsonRes['tanggal'].forEach((val, index, arr) => {
+                        date.push({
+                            x: Date.parse(val['tanggal']),
+                            y: val['total']
+                        })
+
+                        // datelabel.push(val['total']);
+                    });
+
+                    updateChart(myBarChart, date);
+                })
+            })
+
+            const doughnutLabelLines = {
+                id: 'doughnutLabelLines',
+                afterDraw(chart, args, options) {
+                    const {
+                        ctx,
+                        chartArea: {
+                            top,
+                            bottom,
+                            left,
+                            right,
+                            width,
+                            height
+                        }
+                    } = chart;
+                    chart.data.datasets.forEach((dataset, i) => {
+                        chart.getDatasetMeta(i).data.forEach((datapoint, index) => {
+                            const {
+                                x,
+                                y
+                            } = datapoint.tooltipPosition();
+
+                            console.log(x);
+
+                            const halfwidth = width / 2;
+                            const halfheight = height / 2;
+
+                            const xLine = x >= halfwidth ? x + 15 : x - 15;
+                            const yLine = x >= halfheight ? y + 15 : y - 15;
+                            const extraLine = x >= halfwidth ? 15 : -15;
+
+                            ctx.beginPath();
+                            ctx.moveTo(x, y);
+                            ctx.lineTo(xLine, yLine);
+                            ctx.lineTo(xLine + extraLine, yLine);
+                            ctx.strokeStyle = dataset.borderColor[index];
+                            ctx.stroke();
+
+                            const textwidth = ctx.measureText(chart.data.labels[index]).width;
+                            const textPosition = x >= halfwidth ? 'left' : 'right';
+                            const plusFivePx = x >= halfwidth ? 5 : -5;
+                            ctx.textAlign = textPosition;
+                            ctx.textBaseLine = 'middle';
+                            ctx.fillstyle = dataset.borderColor[index];
+                            ctx.fillText(chart.data.labels[index], xLine + extraLine + plusFivePx, yLine);
+                        })
+                    })
+                }
+            }
 
             let label = [];
 
@@ -104,72 +192,136 @@ $data = getData('SELECT * FROM qr');
                             label: 'My First Dataset',
                             data: data,
                             backgroundColor: [
-                                'rgb(255, 99, 132)',
+                                'rgb(75, 192, 192)',
                             ],
-                            hoverOffset: 4
+                            borderColor: 'black',
+                            borderWidth: 1,
+                            hoverOffset: 4,
+                            cutout: '80%',
+                            borderRadius: 20,
                         }]
                     },
                     options: {
+                        maintainAspectRatio: false,
+                        layout: {
+                            padding: 10,
+                        },
                         plugins: {
                             legend: {
-                                display: false
+                                display: false,
+                            },
+                            title: {
+                                display: false,
+                                text: 'Total Per Kawasan',
+                                padding: {
+                                    top: 10,
+                                    bottom: 30
+                                },
+                                font: {
+                                    size: 20
+                                }
+
                             }
                         }
-                    }
+                    },
+                    // plugins: [doughnutLabelLines],
                 }
             );
 
+            const date = [];
+            // const datelabel = [];
+
+            jsonRes['tanggal'].forEach((val, index, arr) => {
+                date.push({
+                    x: Date.parse(val['tanggal']),
+                    y: val['total']
+                })
+
+                // datelabel.push(val['total']);
+            });
+
             const myBarChart = new Chart(
                 document.getElementById('bar'), {
-                    type: 'bar',
+                    type: 'line',
                     data: {
-                        labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
                         datasets: [{
-                            label: 'My First Dataset',
-                            data: [65, 59, 80, 81, 56, 55, 40],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(255, 159, 64, 0.2)',
-                                'rgba(255, 205, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(201, 203, 207, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgb(255, 99, 132)',
-                                'rgb(255, 159, 64)',
-                                'rgb(255, 205, 86)',
-                                'rgb(75, 192, 192)',
-                                'rgb(54, 162, 235)',
-                                'rgb(153, 102, 255)',
-                                'rgb(201, 203, 207)'
-                            ],
-                            borderWidth: 1
+                            label: 'Total Per Tanggal',
+                            data: date,
+                            backgroundColor: 'rgb(75, 192, 192,0.5)',
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0,
+                            borderWidth: 2
                         }]
                     },
+                    // plugins: [ChartDataLabels],
                     options: {
+                        // maintainAspectRatio: false,
+                        layout: {
+                            // padding: {
+                            //     top: 30,
+                            //     bottom: 30
+                            // },
+                        },
                         plugins: {
                             legend: {
                                 display: false
-                            }
+                            },
+                            title: {
+                                display: false,
+                                text: 'Total Per Tanggal',
+                                // padding: {
+                                //     top: 10,
+                                //     bottom: 30
+                                // },
+                                font: {
+                                    size: 20
+                                }
+                            },
+                            // datalabels: {
+                            //     anchor: 'end',
+                            //     labels: datelabel,
+                            // },
+
                         },
                         scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'day',
+                                },
+                            },
                             y: {
-                                beginAtZero: true
-                            }
+                                stacked: true,
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1
+                                }
+                            },
                         }
-                    }
+                    },
+
                 }
             );
         })
 
         xhr.open('POST', '<?= base_url() ?>' + 'api.php');
-        xhr.send();
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("date=" + month.value);
+
+
 
         $(document).ready(function() {
             $("#table").DataTable();
         });
+
+        function updateChart(chart, mydata) {
+            // console.log(chart.data, mydata);
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data = mydata;
+            });
+            chart.update();
+        }
     </script>
 </body>
 

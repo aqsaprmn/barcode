@@ -2,7 +2,7 @@
 
 require_once 'connect.php';
 
-mysqli_query($conn, "INSERT INTO qr VALUES ('', 'Cluster 3',now())");
+mysqli_query($conn, "INSERT INTO qr VALUES ('', 'Cluster 3',now()," . date('m') . "," . date("Y") . ")");
 
 ?>
 
@@ -13,7 +13,7 @@ mysqli_query($conn, "INSERT INTO qr VALUES ('', 'Cluster 3',now())");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./asset/logo-removebg-preview.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./asset/img/logo-removebg-preview.png" type="image/x-icon">
     <link rel="stylesheet" href="./asset/css/style.css">
     <title>Cluster 3 - Akses Prima Indonesia</title>
 </head>
