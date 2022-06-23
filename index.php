@@ -2,8 +2,6 @@
 
 require_once 'connect.php';
 
-
-
 ?>
 
 <!DOCTYPE html>

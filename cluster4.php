@@ -20,7 +20,7 @@ mysqli_query($conn, "INSERT INTO qr VALUES ('', 'Cluster 4',now())");
 
 <body>
     <div class="cluster">
-        <img class="logo" src="./asset/logo_api-removebg-preview.png" alt="">
+        <img class="logo" src="./asset/img/logo_api-removebg-preview.png" alt="">
         <h1>Cluster 4</h1>
         <h3>Terimakasih sudah melakukan sacaning QR</h3>
         <p>Silhkan tekan tombol Whatsapp</p>
