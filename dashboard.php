@@ -54,7 +54,7 @@ $data = getData('SELECT * FROM qr');
                 <div class="row justify-content-end">
                     <div class="col-4"><input id="month" type="month" value="<?= date("Y-m"); ?>" class="form-control"></div>
                 </div>
-                <div class="chartBar ">
+                <div class="chartBar" style="height:100%;">
                     <canvas id="bar"></canvas>
                 </div>
             </div>
