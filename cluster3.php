@@ -1,6 +1,6 @@
 <?php
 
-require_once 'connect.php';
+require_once 'function.php';
 
 mysqli_query($conn, "INSERT INTO qr VALUES ('', 'Cluster 3',now()," . date('m') . "," . date("Y") . ")");
 
@@ -20,12 +20,12 @@ mysqli_query($conn, "INSERT INTO qr VALUES ('', 'Cluster 3',now()," . date('m') 
 
 <body>
     <div class="cluster">
-        <img class="logo" src="./asset/img/logo_api-removebg-preview.png" alt="">
+        <img class="logo" src="<?= base_url() ?>asset/img/logo_api-removebg-preview.png" alt="">
         <h1>Cluster 3</h1>
         <h3>Terimakasih sudah melakukan sacaning QR</h3>
         <p>Silhkan tekan tombol Whatsapp</p>
         <p>Untuk melanjutkan berlangganan internet</p>
-        <img src="./asset/logowa.png" alt="">
+        <img src="<?= base_url() ?>asset/img/logowa.png" alt="">
         <a target="blank" href="https://api.whatsapp.com/send/?phone=6281212129751&text=Halo Admin... Saya ingin berlangganan internet...">WhatsApp</a>
     </div>
 

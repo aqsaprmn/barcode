@@ -49,7 +49,7 @@ $data = getData('SELECT * FROM qr');
             </div>
             <div class="col-lg-6 p-4 shadow-lg border border-gray">
                 <div class="text-center mb-4">
-                    <h5>Total Akses QR Per Kawasan</h5>
+                    <h5>Total Akses QR Per Tanggal</h5>
                 </div>
                 <div class="row justify-content-end">
                     <div class="col-4"><input id="month" type="month" value="<?= date("Y-m"); ?>" class="form-control"></div>
@@ -210,6 +210,9 @@ $data = getData('SELECT * FROM qr');
                             legend: {
                                 display: false,
                             },
+                            datalabels: {
+                                color: 'black'
+                            },
                             title: {
                                 display: false,
                                 text: 'Total Per Kawasan',
@@ -224,7 +227,7 @@ $data = getData('SELECT * FROM qr');
                             }
                         }
                     },
-                    // plugins: [doughnutLabelLines],
+                    plugins: [ChartDataLabels],
                 }
             );
 

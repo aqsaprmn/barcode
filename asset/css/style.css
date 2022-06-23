@@ -22,7 +22,7 @@ div.cluster {
     justify-content: center;
     align-items: center;
     color: white;
-    background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(http://103.242.181.10/barcode/asset/bg.jpg) no-repeat;
+    background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(http://103.242.181.10/barcode/asset/img/bg.jpg) no-repeat;
     background-size: cover;
 }
 
