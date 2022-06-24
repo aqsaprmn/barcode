@@ -38,22 +38,21 @@ $data = getData('SELECT * FROM qr');
         </div>
     </header>
     <section class="">
-        <div class="row justify-content-around mb-5 px-2 m-0">
-            <div class="col-lg-5 mb-4 shadow-lg border border-gray py-4 rounded justify-content-center">
+        <div class="row justify-content-around mb-5 px-5 m-0">
+            <div class="col-lg-5 mb-4 shadow-lg border border-gray py-4 rounded">
                 <div class="text-center mb-4">
                     <h5>Total Akses QR Per Kawasan</h5>
                 </div>
                 <div class="row">
-                    <div class="chartDonat col-8">
+                    <div class="chartDonat mb-4 col-xl-8">
                         <canvas id="donat"></canvas>
                     </div>
-                    <div class="col-4 stateDonat justify-content-center align-self-center">
-                        <table>
+                    <div class="col-xl-4 stateDonat d-flex justify-content-center align-self-center">
+                        <table class="table table-bordered">
 
                         </table>
                     </div>
                 </div>
-
             </div>
             <div class="col-lg-6 p-4 shadow-lg border border-gray">
                 <div class="text-center mb-4">
@@ -62,13 +61,13 @@ $data = getData('SELECT * FROM qr');
                 <div class="row justify-content-end">
                     <div class="col-4"><input id="month" type="month" value="<?= date("Y-m"); ?>" class="form-control"></div>
                 </div>
-                <div class="chartBar" style="height:100%;">
+                <div class="chartBar" style="height: 100%;">
                     <canvas id="bar"></canvas>
                 </div>
             </div>
         </div>
-        <div class="row m-0 p-5">
-            <div class="col-lg-12 p-5 shadow-lg border border-gray rounded">
+        <div class="row m-0 px-5">
+            <div class="col-lg-12 overflow-auto p-5 shadow-lg border border-gray rounded">
                 <table id="table" class="cell-border row-border hover compact stripe">
                     <thead>
                         <tr>
@@ -201,9 +200,8 @@ $data = getData('SELECT * FROM qr');
                 trDonat += `<tr>
                         <td style="padding:10px"><span style="position:relative; display: block; width:20px; height: 20px; background-color:${colorDonat[index]}; border:1px solid black;"><span></td>
                         <td>${label[index]} </td>
-                        <td> = </td>
-                        
-                        <td><b>${data[index]}</b></td>
+                        <td colspan="3" class="text-center"> = </td>
+                        <td class="text-center"><b>${data[index]}</b></td>
                 </tr>`;
             });
 
