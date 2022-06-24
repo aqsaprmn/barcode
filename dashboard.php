@@ -48,7 +48,7 @@ $data = getData('SELECT * FROM qr');
                         <canvas id="donat"></canvas>
                     </div>
                     <div class="col-xl-4 stateDonat d-flex justify-content-center align-self-center">
-                        <table class="table table-bordered">
+                        <table class="table">
 
                         </table>
                     </div>
