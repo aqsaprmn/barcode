@@ -43,9 +43,17 @@ $data = getData('SELECT * FROM qr');
                 <div class="text-center mb-4">
                     <h5>Total Akses QR Per Kawasan</h5>
                 </div>
-                <div class="chartDonat">
-                    <canvas id="donat"></canvas>
+                <div class="row">
+                    <div class="chartDonat col-8">
+                        <canvas id="donat"></canvas>
+                    </div>
+                    <div class="col-4 stateDonat justify-content-center align-self-center">
+                        <table>
+
+                        </table>
+                    </div>
                 </div>
+
             </div>
             <div class="col-lg-6 p-4 shadow-lg border border-gray">
                 <div class="text-center mb-4">
@@ -59,8 +67,8 @@ $data = getData('SELECT * FROM qr');
                 </div>
             </div>
         </div>
-        <div class="row m-0">
-            <div class="col-lg-12">
+        <div class="row m-0 p-5">
+            <div class="col-lg-12 p-5 shadow-lg border border-gray rounded">
                 <table id="table" class="cell-border row-border hover compact stripe">
                     <thead>
                         <tr>
@@ -183,6 +191,24 @@ $data = getData('SELECT * FROM qr');
                 data.push(parseInt(val['total']));
             });
 
+            const stateDonat = document.querySelector('.stateDonat');
+            const tableDonat = stateDonat.querySelector('table');
+
+            let trDonat = ``;
+            let colorDonat = getColorLabel(data.length);
+
+            data.forEach((val, index, arr) => {
+                trDonat += `<tr>
+                        <td style="padding:10px"><span style="position:relative; display: block; width:20px; height: 20px; background-color:${colorDonat[index]}; border:1px solid black;"><span></td>
+                        <td>${label[index]} </td>
+                        <td> = </td>
+                        
+                        <td><b>${data[index]}</b></td>
+                </tr>`;
+            });
+
+            tableDonat.innerHTML = trDonat;
+
             const myDonatChart = new Chart(
                 document.getElementById('donat'), {
                     type: 'doughnut',
@@ -191,9 +217,7 @@ $data = getData('SELECT * FROM qr');
                         datasets: [{
                             label: 'My First Dataset',
                             data: data,
-                            backgroundColor: [
-                                'rgb(75, 192, 192)',
-                            ],
+                            backgroundColor: getColorLabel(data.length),
                             borderColor: 'black',
                             borderWidth: 1,
                             hoverOffset: 4,
