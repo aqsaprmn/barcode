@@ -1,10 +1,10 @@
-<?php
+<!-- <?php
 
-require_once 'function.php';
+        require_once 'function.php';
 
-$data = getData('SELECT * FROM qr');
+        $data = getData('SELECT * FROM qr');
 
-?>
+        ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,6 +50,7 @@ $data = getData('SELECT * FROM qr');
                     <div class="col-xl-4 stateDonat d-flex justify-content-center align-self-center">
                         <table class="table">
 
+
                         </table>
                     </div>
                 </div>
@@ -66,7 +67,7 @@ $data = getData('SELECT * FROM qr');
                 </div>
             </div>
         </div>
-        <div class="row m-0 px-5">
+        <div class="row px-5 mx-0 pb-5">
             <div class="col-lg-12 overflow-auto p-5 shadow-lg border border-gray rounded">
                 <table id="table" class="cell-border row-border hover compact stripe">
                     <thead>
@@ -330,7 +331,7 @@ $data = getData('SELECT * FROM qr');
             );
         })
 
-        xhr.open('POST', '<?= base_url() ?>' + 'api.php');
+        // xhr.open('POST', '<?= base_url() ?>' + 'api.php');
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send("date=" + month.value);
 
@@ -350,4 +351,4 @@ $data = getData('SELECT * FROM qr');
     </script>
 </body>
 
-</html>
+</html> -->
